@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  vision:
+    build:
+      context: ./docker/vision
+      dockerfile: Dockerfile
+    container_name: robomanip-vision
+    volumes:
+      - ./ros2_ws:/app/ros2_ws
+    environment:
+      - FORCE_CPU=false
+    restart: unless-stopped
+
+  foundation_pose:
+    build:
+      context: ./docker/foundation_pose
+      dockerfile: Dockerfile
+    container_name: robomanip-foundationpose
+    ports:
+      - "5001:5001"
+    restart: unless-stopped
+
+  ros2:
+    build:
+      context: ./docker/ros2
+      dockerfile: Dockerfile
+    container_name: robomanip-ros2
+    volumes:
+      - ./ros2_ws:/workspace/ros2_ws
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  web_ui:
+    build:
+      context: ./web_ui
+      dockerfile: Dockerfile
+    container_name: robomanip-webui
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
