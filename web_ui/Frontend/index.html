@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic Manipulation — Control Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon">◆</span>
+      <div class="brand-text">
+        <h1>Agentic Manipulation</h1>
+        <span class="subtitle">Vision · Planning · Robotics Control Dashboard</span>
+      </div>
+    </div>
+
+    <div class="connection-status" id="connectionStatus">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusLabel">Connecting…</span>
+    </div>
+  </header>
+
+  <!-- ============ MAIN LAYOUT ============ -->
+  <main class="layout">
+
+    <!-- ---- LEFT: COMMAND PANEL ---- -->
+    <section class="panel command-panel">
+      <h2 class="panel-title">Command</h2>
+
+      <textarea
+        id="commandInput"
+        class="command-input"
+        placeholder="e.g. Pick up the red cube and place it in the grey bin"
+        rows="3"
+      ></textarea>
+
+      <button id="sendCommandBtn" class="btn-primary">
+        <span>Send Command</span>
+      </button>
+
+      <div class="quick-commands">
+        <span class="quick-label">Quick actions</span>
+        <div class="quick-chip-row">
+          <button class="chip" data-cmd="Pick up the red cube and place it in the grey bin">Pick red cube → bin</button>
+          <button class="chip" data-cmd="Sort all objects by color">Sort by color</button>
+          <button class="chip" data-cmd="Return to home position">Return home</button>
+        </div>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <h2 class="panel-title">Execution Status</h2>
+      <div class="status-card">
+        <div class="status-row">
+          <span class="status-key">State</span>
+          <span class="status-value" id="taskState">IDLE</span>
+        </div>
+        <div class="status-row">
+          <span class="status-key">Current Step</span>
+          <span class="status-value" id="currentStep">—</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- CENTER: TASK PLAN ---- -->
+    <section class="panel plan-panel">
+      <h2 class="panel-title">Task Plan</h2>
+      <ol class="plan-steps" id="planSteps">
+        <li class="plan-step empty">No active plan yet. Send a command to begin.</li>
+      </ol>
+    </section>
+
+    <!-- ---- RIGHT: SCENE GRAPH ---- -->
+    <section class="panel scene-panel">
+      <h2 class="panel-title">Scene Graph</h2>
+      <div class="scene-objects" id="sceneObjects">
+        <p class="empty-state">No objects detected yet.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>Agentic Manipulation System</span>
+    <span class="footer-dot">•</span>
+    <span>Vision · LLM Planning · ROS2</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
