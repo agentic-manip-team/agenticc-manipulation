@@ -31,6 +31,7 @@ setup(
             'monitoring_node = monitoring_agent.monitoring_node:main',  # quality inspector
             'mock_robot = monitoring_agent.mock_robot:main',            # fake robot (demo/testing)
             'recovery_node = monitoring_agent.recovery_node:main',      # problem solver
+            'evaluation_node = monitoring_agent.evaluation_node:main',   # performance evaluator
         ],
     },
 )

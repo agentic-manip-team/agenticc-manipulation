@@ -36,3 +36,21 @@ def failure_type_for(action):
         'HOME': 'motion_failed',
     }
     return mapping.get(action, 'unknown_action')
+
+
+def evaluate_step(data):
+    """Poore step ka faisla: data dict -> (success, failure_reason).
+    Success par reason khali string hota hai."""
+    action = data.get('action')
+    if action == 'MOVE_TO':
+        ok = check_move_to(data.get('distance_to_target', 999.0))
+    elif action == 'GRASP':
+        ok = check_grasp(data.get('finger_gap', 999.0))
+    elif action == 'PLACE':
+        ok = check_place(data.get('object_at_target', False),
+                         data.get('stable_1_sec', False))
+    elif action in ('OPEN_GRIPPER', 'CLOSE_GRIPPER', 'HOME'):
+        ok = check_gripper(data.get('done', False))
+    else:
+        ok = False
+    return ok, ('' if ok else failure_type_for(action))
